@@ -3,7 +3,7 @@ import React from "react";
 const ShowListHeading = (props) => {
   return (
     <div className="col">
-      <h1>{props.heading}</h1>
+      <h5>{props.heading}</h5>
     </div>
   );
 };

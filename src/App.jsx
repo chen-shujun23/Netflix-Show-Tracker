@@ -1,47 +1,25 @@
-import React, { useState, useEffect, createContext } from "react";
-import ShowList from "./components/ShowList";
-import ShowListHeading from "./components/ShowListHeading";
-import SearchBar from "./components/SearchBar";
-import AddWatched from "./components/AddWatched";
+import React, { Suspense } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 
-// export const DataContext = createContext();
+const NavBar = React.lazy(() => import("./components/NavBar"));
+const Home = React.lazy(() => import("./pages/Home"));
+const MyShows = React.lazy(() => import("./pages/MyShows"));
+const Browse = React.lazy(() => import("./pages/Browse"));
+// const Details = React.lazy(() => import("./components/Details"));
 
 function App() {
-  const [shows, setShows] = useState([]);
-  const [watched, setWatched] = useState([]);
-
-  // console.log("Shows set in App", shows);
-
-  const addWatchedShow = (show) => {
-    const newWatchedList = [...watched, show];
-    setWatched(newWatchedList);
-  };
-
   return (
-    // <DataContext.Provider value={{ shows, setShows }}>
-    <div className="container-fluid show-app">
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <ShowListHeading heading="Shows" />
-        <SearchBar setShows={setShows} />
-      </div>
-
-      <div className="row">
-        <ShowList
-          shows={shows}
-          handleWatchedClick={addWatchedShow}
-          watchedComponent={AddWatched}
-        />
-      </div>
-
-      <div className="row d-flex align-items-center mt-4 mb-4">
-        <ShowListHeading heading="Watch History" />
-      </div>
-
-      <div className="row">
-        <ShowList shows={watched} />
-      </div>
+    <div className="wrapper">
+      <Suspense fallback={<p>loading...</p>}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<Navigate replace to="/home" />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/my-shows" element={<MyShows />} />
+          <Route path="/browse" element={<Browse />} />
+        </Routes>
+      </Suspense>
     </div>
-    // </DataContext.Provider>
   );
 }
 

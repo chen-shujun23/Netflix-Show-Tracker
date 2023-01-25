@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import AddWatched from "./AddWatched";
 
 const ShowList = (props) => {
-  // console.log("Ready to display showlist", props.shows);
-
-  const WatchedComponent = props.watchedComponent;
-
   return (
     <>
       {props.shows.map((show, index) => (
         <div
-          className="image-container d-flex justify-content-center col"
-          key={show.id}
+          className="image-container d-flex justify-content-center col-2 "
+          key={index}
         >
-          <img src={show.img} alt={show.title}></img>
+          <LazyLoadImage
+            src={show.img}
+            alt={show.title}
+            onClick={() => props.handleShowClick(show)}
+          />
           <div
-            onClick={() => props.handleWatchedClick(movie)}
+            onClick={() => props.handleShowClick(show)}
             className="overlay d-flex align-items-center justify-content-center"
           >
-            <WatchedComponent />
+            {props.overlay}
           </div>
         </div>
       ))}
