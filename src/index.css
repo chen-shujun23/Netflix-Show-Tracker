@@ -41,7 +41,7 @@ body {
 }
 
 .bottom-block {
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
 }
 /* ---------------------------------- */

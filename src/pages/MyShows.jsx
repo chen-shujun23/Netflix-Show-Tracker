@@ -9,15 +9,25 @@ function MyShows() {
   const [shows, setShows] = useState([]);
   const [watched, setWatched] = useState([]);
 
+  useEffect(() => {
+    if (localStorage.getItem("react-shows-app-watched") !== undefined) {
+      setWatched(JSON.parse(localStorage.getItem("react-shows-app-watched")));
+    }
+  }, []);
+
   // console.log("Shows set in App", shows);
 
   const saveToLocalStorage = (items) => {
+    console.log("adding2");
     localStorage.setItem("react-shows-app-watched", JSON.stringify(items));
   };
 
   const addWatchedShow = (show) => {
-    const newWatchedList = [...watched, show];
-    console.log({ newWatchedList });
+    let newWatchedList = [show];
+    if (Array.isArray(watched)) {
+      newWatchedList = [...watched, show];
+    }
+
     setWatched(newWatchedList);
     saveToLocalStorage(newWatchedList);
   };
