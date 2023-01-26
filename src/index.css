@@ -38,12 +38,20 @@ body {
   margin: 0;
   vertical-align: baseline;
   height: 80vh;
+  display: flex;
 }
 
 .bottom-block {
-  /* position: absolute; */
+  position: absolute;
   bottom: 0;
 }
+
+.home-pg > .row {
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  position: absolute;
+}
+
 /* ---------------------------------- */
 
 .show-app > .row {

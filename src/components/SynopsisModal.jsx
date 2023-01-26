@@ -1,23 +1,37 @@
 import React from "react";
+import ReactDOM from "react-dom";
+import styles from "./SynopsisModal.module.css";
+import Button from "./Button";
 
-const SynopsisModal = ({ show, handleClose }) => {
+function Overlay(props) {
   return (
-    <div className="modal-container">
-      <div className="modal-overlay" onClick={handleClose}></div>
-      <div className="modal-content">
-        <div className="modal-header">
-          <h2>{show.name}</h2>
+    <div className={styles.backdrop} onClick={props.handleClose}>
+      <div className={`${styles.board} ${styles.modal}`}>
+        <header className={styles.header}>
+          <h2>{props.title}</h2>
+        </header>
+        <div className={styles.content}>
+          <p>{props.synopsis}</p>
         </div>
-        <div className="modal-body">
-          <img src={show.image} alt={show.name} />
-          <p>{show.description}</p>
-        </div>
-        <div className="modal-footer">
-          <button onClick={handleClose}>Close</button>
-        </div>
+        <footer className={styles.actions}>
+          <Button onClick={props.handleClose}>Close</Button>
+        </footer>
       </div>
     </div>
   );
-};
+}
 
-export default SynopsisModal;
+export default function SynopsisModal(props) {
+  return (
+    <>
+      {ReactDOM.createPortal(
+        <Overlay
+          title={props.title}
+          synopsis={props.synopsis}
+          handleClose={props.handleClose}
+        />,
+        document.querySelector("#modal-root")
+      )}
+    </>
+  );
+}
