@@ -17,7 +17,6 @@ const SearchBar = (props) => {
 
   useEffect(() => {
     if (data) {
-      // console.log("Data fetched in Search:", data);
       props.setShows(data.results);
     }
   }, [data]);
@@ -37,7 +36,6 @@ const SearchBar = (props) => {
           </button>
         </div>
       </form>
-      {loading && <p>Loading...</p>}
       {error && <p>Error: Data not found</p>}
     </>
   );

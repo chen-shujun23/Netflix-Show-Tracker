@@ -1,5 +1,4 @@
 import React from "react";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const ShowList = (props) => {
   console.log(props);
@@ -14,7 +13,7 @@ const ShowList = (props) => {
             className="image-container d-flex justify-content-center col-2 "
             key={index}
           >
-            <LazyLoadImage
+            <img
               src={show.img}
               alt={show.title}
               onClick={() => props.handleShowClick(show)}

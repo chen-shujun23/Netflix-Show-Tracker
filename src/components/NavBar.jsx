@@ -23,14 +23,6 @@ const NavBar = () => {
               My Shows
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to="/browse"
-              className={(navData) => (navData.isActive ? styles.active : "")}
-            >
-              Browse
-            </NavLink>
-          </li>
         </ul>
       </nav>
       <span className="logo">Watcher</span>

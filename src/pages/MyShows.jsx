@@ -1,9 +1,7 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import ShowList from "../components/ShowList";
 import ShowListHeading from "../components/ShowListHeading";
 import SearchBar from "../components/SearchBar";
-
-// export const DataContext = createContext();
 
 function MyShows() {
   const [shows, setShows] = useState([]);
@@ -15,10 +13,7 @@ function MyShows() {
     }
   }, []);
 
-  // console.log("Shows set in App", shows);
-
   const saveToLocalStorage = (items) => {
-    console.log("adding2");
     localStorage.setItem("react-shows-app-watched", JSON.stringify(items));
   };
 
@@ -41,10 +36,9 @@ function MyShows() {
   };
 
   return (
-    // <DataContext.Provider value={{ shows, setShows }}>
     <div className="container-fluid show-app">
       <div className="row d-flex align-items-center justify-content-center mt-4 mb-4">
-        <ShowListHeading heading="Shows" />
+        <ShowListHeading heading="Search Results" />
         <SearchBar setShows={setShows} />
       </div>
 
@@ -68,7 +62,6 @@ function MyShows() {
         />
       </div>
     </div>
-    // </DataContext.Provider>
   );
 }
 

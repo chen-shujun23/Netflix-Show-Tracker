@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import showsData from "../showsData";
 import useFetch from "../hooks/useFetch";
 import ShowList from "../components/ShowList";
-import SynopsisModal from "../components/SynopsisModal";
+import ShowDisplay from "../components/ShowDisplay";
 
 const Home = () => {
-  const [newShows, setNewShows] = useState([]);
   const [data, error, loading, fetchData] = useFetch();
-  const [show, setShow] = useState();
-  const [synopsis, setSynopsis] = useState(false);
+  const [newShows, setNewShows] = useState([]);
+  const [show, setShow] = useState({});
   const today = new Date();
-  const oneWeekAgo = today.setDate(today.getDate() - 7);
+  today.setDate(today.getDate() - 7);
   const date = today.toISOString().substring(0, 10);
   const url = `https://unogsng.p.rapidapi.com/search?newdate=${date}&limit=10`;
-  const title = show.title.replace(/&#39;/g, "'");
 
   console.log(date);
 
@@ -26,45 +23,48 @@ const Home = () => {
       setNewShows([]);
     } else {
       setNewShows(data.results);
+      console.log("dataresults", newShows);
     }
   }, [data]);
 
-  const handleSynopsis = (show) => {
-    if (newShows.length !== 0) {
-      setShow(show);
-      console.log("set", show);
-      setSynopsis(true);
-      console.log(show.synopsis);
+  useEffect(() => {
+    if (newShows && newShows.length > 0) {
+      setShow({
+        title: newShows[0].title,
+        src: newShows[0].img,
+        synopsis: newShows[0].synopsis,
+      });
     }
+  }, [newShows]);
+
+  const handleShowClick = (item) => {
+    setShow((prevState) => {
+      return {
+        ...prevState,
+        title: item.title,
+        src: item.img,
+        synopsis: item.synopsis,
+      };
+    });
+    console.log("Clicked", show);
   };
-
-  // const handleSynopsis = () => {
-  //   "blah";
-  // };
-
-  function handleClose() {
-    setShow({});
-    setSynopsis(false);
-  }
 
   return (
     <div className="d-flex flex-column">
+      <div className="p-3 d-flex align-items-center justify-content-center">
+        <h4 className="page-title">DON'T KNOW WHAT TO WATCH?</h4>
+      </div>
       <div className="p-4 d-flex align-items-center justify-content-center">
-        <h4>DON'T KNOW WHAT TO WATCH?</h4>
+        <ShowDisplay show={show} />
       </div>
       <div className="p-3 d-flex align-items-center justify-content-center">
-        <img src={show.img} />
-        <h1>{title}</h1>
-        <p>{show.synopsis}</p>
-      </div>
-      <div className="p-3 d-flex align-items-center justify-content-center">
-        <h6>Check out these new releases!</h6>
+        <h4 className="page-title">Check out this week's new releases!</h4>
       </div>
       <div className="container-fluid home-pg">
         <div className="row">
           <ShowList
             shows={newShows}
-            handleShowClick={handleSynopsis}
+            handleShowClick={handleShowClick}
             overlay="Check it out"
           />
         </div>
@@ -74,14 +74,3 @@ const Home = () => {
 };
 
 export default Home;
-
-{
-  /* 
-      {synopsis && (
-        <SynopsisModal
-          handleClose={handleClose}
-          synopsis={show.current.synopsis}
-          title={show.current.title}
-        />
-      )} */
-}
