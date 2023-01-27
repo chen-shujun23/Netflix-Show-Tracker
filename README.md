@@ -2,6 +2,9 @@
 
 This is a show tracking app that helps users track the movies or series they have watched. The current features include a display of the week's latest shows and their synopses on the Home page and a search bar to search for shows on the My Shows page. Users can add and remove shows from the watch history list.
 
+![Home page screenshot](images/Home-page.png)
+![MyShow page screenshot](images/MyShows-page.png)
+
 ## Technologies Used
 
 1. React framwork
@@ -24,6 +27,10 @@ This is a show tracking app that helps users track the movies or series they hav
 
 - Create resusable components that can customised through its props.
 - Create hooks to extract stateful logic from components so that they can be reused.
+
+## Hierarchy
+
+![Hierarchy](images/Heirarchy.png)
 
 ## Challenges
 
